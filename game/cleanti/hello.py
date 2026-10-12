@@ -4,28 +4,31 @@ pygame.init()
 
 screen = pygame.display.set_mode((800, 600))
 clock = pygame.time.Clock()
-x, running = 400, True
-y, running = 400, True
-player = pygame.Rect(400, 400, 100, 100)
+x = 0
+y = 0
+running = True
+player = pygame.Rect(x, y, 100, 100)
+speed = 300
 
 while running:
+    delate_time = clock.tick(60) / 1000.0
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
+    key = pygame.key.get_pressed()
 
-    if pygame.key.get_pressed()[pygame.K_RIGHT]:
-        player.x += 5
-    if pygame.key.get_pressed()[pygame.K_LEFT]:
-        player.x -= 5
-    if pygame.key.get_pressed()[pygame.K_UP]:
-        player.y -= 5
-    if pygame.key.get_pressed()[pygame.K_DOWN]:
-        player.y += 5
+    if key[pygame.K_RIGHT]:
+        player.x += speed * delate_time
+    if key[pygame.K_LEFT]:
+        player.x -= speed * delate_time
+    if key[pygame.K_UP]:
+        player.y -= speed * delate_time
+    if key[pygame.K_DOWN]:
+        player.y += speed * delate_time
     screen.fill((0, 0, 255))
     player.clamp_ip(screen.get_rect())
     pygame.draw.rect(screen, (255, 0, 0), player)
     pygame.display.flip()
-    clock.tick(60)
 
 pygame.quit()
