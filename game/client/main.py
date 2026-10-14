@@ -74,6 +74,7 @@ def main():
 
     while running:
         deltaTime = clock.tick(60) / 1000.0
+        deltaTime = min(deltaTime, 0.05)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -156,7 +157,7 @@ def main():
 
         overlayDrawn = False
         key = pygame.key.get_pressed()
-        direction = (key[pygame.K_RIGHT] or key[pygame.K_d]) - (key[pygame.K_LEFT] or key[pygame.K_a])
+        direction = key[pygame.K_RIGHT] - key[pygame.K_LEFT]
         game.update(deltaTime, direction)
 
         screen.fill((0, 0, 255))
@@ -164,8 +165,6 @@ def main():
         pygame.draw.circle(screen, (255, 255, 255), (int(game.ballX), int(game.ballY)), game.ballRadius)
         for cube in game.cubes:
             pygame.draw.rect(screen, cubeTypes[cube["type"]]["color"], toRect(cube["rect"]).inflate(-6, -6))
-            if cube["hp"] > 1 and cube["type"] not in ("B", "S"):
-                drawText(screen, tinyFont, str(int(cube["hp"]) if cube["hp"].is_integer() else cube["hp"]), toRect(cube["rect"]).center)
         for powerup in game.powerups:
             pygame.draw.rect(screen, (255, 255, 255), toRect(powerup["rect"]))
             pygame.draw.rect(screen, (0, 220, 255), toRect(powerup["rect"]).inflate(-6, -6))

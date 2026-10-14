@@ -38,7 +38,7 @@ cubeTypes = {
     "2": {"color": (0, 100, 0), "hp": 2, "speed": 7, "size": 1},
     "3": {"color": (10, 190, 32), "hp": 3, "speed": 7, "size": 1},
     "S": {"color": (220, 180, 0), "hp": 5, "speed": 7, "size": 1},
-    "B": {"color": (70, 0, 100), "hp": 20, "speed": 14, "size": 2}
+    "B": {"color": (70, 0, 100), "hp": 20, "speed": 10, "size": 2}
 }
 
 
@@ -83,7 +83,7 @@ def spawnRow(rowString, cubes, rowIndex):
         if char in cubeTypes:
             cubeType = cubeTypes[char]
             size = cell * cubeType["size"]
-            cubes.append({"rect": Rect(col * cell, 0, size, size), "type": char, "hp": float(cubeType["hp"]), "speed": cubeType["speed"], "row": rowIndex})
+            cubes.append({"rect": Rect(col * cell, cell - size, size, size), "type": char, "hp": float(cubeType["hp"]), "speed": cubeType["speed"], "row": rowIndex})
 
 
 def loadLevel(index):
@@ -110,7 +110,7 @@ def makeUnit(unitType, x):
 def spawnFriendlyUnit(units):
     if len(units) >= 10:
         return
-    unitType = "tank" if random.random() < 0.10 else "infantry"
+    unitType = "tank" if random.random() < 0.35 else "infantry"
     candidates = list(range(50, 951, 5))
     random.shuffle(candidates)
     for x in candidates:
@@ -124,7 +124,7 @@ def chooseTarget(unit, cubes):
     if not cubes:
         return None
     if unit["type"] == "infantry":
-        oldestRow = max(cube["row"] for cube in cubes)
+        oldestRow = min(cube["row"] for cube in cubes)
         return random.choice([cube for cube in cubes if cube["row"] == oldestRow])
     start = (unit["rect"].centerx, unit["rect"].top)
     visible = []
