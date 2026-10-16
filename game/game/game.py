@@ -43,7 +43,7 @@ LEVELS = [
 
 # ----- Stats for each cube type -----
 CUBE_TYPES = {
-    "1": {"color": (175, 35, 35), "hp": 1, "speed": 1000, "size": 1},
+    "1": {"color": (175, 35, 35), "hp": 1, "speed": 8, "size": 1},
     "2": {"color": (0, 100, 0), "hp": 2, "speed": 8, "size": 1},
     "3": {"color": (10, 190, 32), "hp": 3, "speed": 8, "size": 1},
     "S": {"color": (220, 180, 0), "hp": 5, "speed": 8, "size": 1},
