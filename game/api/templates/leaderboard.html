@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+  <meta charset="UTF-8">
+  <title>War Breakout | TOP 5</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+  <nav>
+    <a class="active" href="/">TOP 5</a>
+    <a href="/rules">Noteikumi</a>
+  </nav>
+
+  <main>
+    <h1>TOP 5</h1>
+
+    <table>
+      <tr>
+        <th>#</th>
+        <th>Spēlētājs</th>
+        <th>Laiks</th>
+      </tr>
+      {% for row in scores %}
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ row.player }}</td>
+        <td>{{ row.score | laiks }}</td>
+      </tr>
+      {% else %}
+      <tr>
+        <td colspan="3">Vēl nav neviena rezultāta.</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </main>
+
+</body>
+</html>
